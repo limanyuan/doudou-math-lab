@@ -1,0 +1,13 @@
+# wrangler 和部署相关
+.wrangler/
+wrangler.jsonc
+
+# 部署时不要上传 .git
+.git/
+.gitignore
+
+# 系统文件
+.DS_Store
+*.swp
+*.swo
+*~
