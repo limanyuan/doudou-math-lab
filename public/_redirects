@@ -1,0 +1,2 @@
+# 让 /index.html 也返回 200 而不是 307
+/index.html / 200
