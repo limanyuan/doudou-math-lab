@@ -1,0 +1,6 @@
+@media (max-width:650px) {
+  .install-banner { gap:8px; padding:10px 12px; }
+  .install-banner > i, .install-banner span { display:none; }
+  .install-banner b { font-size:12px; white-space:nowrap; }
+  .install-banner button { padding:7px 9px; }
+}

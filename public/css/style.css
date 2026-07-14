@@ -18,8 +18,8 @@
   --sky-deep: #1E3A8A;
   --ink: #2D3142;
   --ink-2: #5A5F6F
-  --muted: #94A3B8;
-  --line: #E8DFD0;  /* 暖灰边框 */
+  --muted: #6B7280;
+  --line: #D4C9B5;  /* 暖灰边框 */
   --white: #FFFCF5;  /* 暖白替代纯白，护眼 */
   --shadow: 0 4px 0 rgba(30,58,138,.08), 0 2px 8px rgba(30,58,138,.04);
   --shadow-lg: 0 8px 24px rgba(30,58,138,.12), 0 4px 8px rgba(30,58,138,.06);
@@ -33,10 +33,10 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(180deg, #FFF8E7 0%, #FFEFD5 35%, #FFE4C8 70%, #F5DCC0 100%);
+  background: linear-gradient(180deg, #FFF8E7 0%, #FFEFD5 40%, #F5DCC0 100%);
   background-attachment: fixed;
   color: var(--ink);
-  font-family: "Quicksand", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -75,19 +75,17 @@ html, body {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 248, 224, 0.88);
+  background: rgba(255,251,235,.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
-  width: 100%;
-}
-.topbar-inner {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 10px 24px;
+  padding: 12px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 100%;
 }
 .brand {
   display: flex;
@@ -168,13 +166,8 @@ html, body {
 /* ============== Main ============== */
 .main-stage {
   max-width: 1080px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   padding: 20px 24px 100px;
-  position: relative;
-  z-index: 1;
-  display: block;
 }
 
 /* ============== Views ============== */
@@ -977,26 +970,10 @@ html, body {
 /* ============== Bottom tab bar ============== */
 .bottom-tab {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  padding: 12px;
-  pointer-events: none;
-  z-index: 40;
-}
-.bottom-tab > .tab-list {
-  pointer-events: auto;
-  background: #FFFCF5;
-  border-radius: var(--radius-lg);
-  padding: 8px 12px;
-  display: flex;
-  gap: 4px;
-  box-shadow: var(--shadow-lg);
-  border: 2px solid var(--line);
-  max-width: 520px;
-}
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--white);
   border-radius: var(--radius-lg);
   padding: 8px 12px;
   display: flex;

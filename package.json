@@ -4,7 +4,7 @@
   "description": "豆豆数学探险队 - 儿童友好版",
   "private": true,
   "scripts": {
-    "build": "echo 'No build step needed - pure static site' && exit 0",
+    "build": "node scripts/build.mjs",
     "deploy": "echo 'Auto-deploy via Cloudflare Pages'"
   }
 }

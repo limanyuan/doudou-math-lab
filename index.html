@@ -3,15 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#FB923C">
-  <title>🦊 豆豆数学探险队 · 儿童友好版</title>
+  <meta name="theme-color" content="#164B4A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="豆豆数学">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>豆豆数学探险队 · 学习手册</title>
   <!-- Bunny Fonts (Google Fonts 开源替代品，国内访问更快) -->
   <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
   <link href="https://fonts.bunny.net/css?family=fredoka:600,700|quicksand:400,500,600,700|jetbrains-mono:400,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <!-- 系统字体优先，避免外部 CDN 慢加载导致页面空白 -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/visual-explanations.css">
+  <link rel="stylesheet" href="css/v6.css">
+  <link rel="stylesheet" href="css/mobile-fixes.css">
 </head>
 <body>
   <div class="bg-deco">
@@ -43,6 +50,13 @@
 
   <main class="main-stage">
 
+    <section class="install-banner hidden" id="installBanner" aria-label="安装学习应用">
+      <i class="fa-solid fa-mobile-screen-button"></i>
+      <div><b>装到手机主屏幕</b><span>离线也能继续做题和复习</span></div>
+      <button id="installAppBtn">安装</button>
+      <button class="dismiss-install" id="dismissInstall" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button>
+    </section>
+
     <!-- 营地 -->
     <section class="view active" id="homeView">
       <div class="hero-card">
@@ -54,6 +68,12 @@
         </div>
         <div class="hero-fox">🦊</div>
       </div>
+
+      <section class="summer-brief" id="summerBrief">
+        <div class="summer-brief-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+        <div><p>三升四 · 暑假思维营</p><h2 id="summerBriefTitle">加载 55 道真实思维题…</h2><span id="summerBriefMeta">每天 10–15 分钟，练方法、会复盘</span></div>
+        <button class="summer-brief-action" id="openSummerCamp">进入今日任务 <i class="fa-solid fa-arrow-right"></i></button>
+      </section>
 
       <!-- 今日 3 关 -->
       <section class="block">
@@ -252,5 +272,8 @@
   <script src="js/analytics.js"></script>
   <script src="js/stickers.js"></script>
   <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+  </script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+{
+  "name": "豆豆数学探险队",
+  "short_name": "豆豆数学",
+  "description": "每天 10 分钟的数学思维学习手册",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FFF8E7",
+  "theme_color": "#164B4A",
+  "icons": [{ "src": "icons/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

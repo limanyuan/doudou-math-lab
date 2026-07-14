@@ -17,6 +17,8 @@ const state = {
   currentQKey: null,
   currentUnit: 0,
   hintsUsed: 0,
+  summerUnitIdx: -1,
+  installPrompt: null,
 };
 
 const $ = s => document.querySelector(s);
@@ -34,10 +36,13 @@ function todayStr() {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
-function init() {
+async function init() {
   loadStore();
   bind();
+  initInstallPrompt();
   if (!state.profile.name && !localStorage.getItem('doudou_math_v5')) openProfile();
+  renderAll();
+  await loadSummerBank();
   renderAll();
   // 每 30 秒刷新 streak（实际不需要，因为关闭再开会重算）
   setInterval(updateStreakPill, 30000);
@@ -54,8 +59,75 @@ function bind() {
   $('#checkAnswer').addEventListener('click', checkAnswer);
   $('#nextQuestion').addEventListener('click', nextQuestion);
   $('#saveNoteBtn').addEventListener('click', saveNote);
+  $('#openSummerCamp')?.addEventListener('click', openSummerCamp);
+  $('#installAppBtn')?.addEventListener('click', installApp);
+  $('#dismissInstall')?.addEventListener('click', () => $('#installBanner')?.classList.add('hidden'));
   $('#profileModal').addEventListener('click', e => { if (e.target.id === 'profileModal') closeProfile(); });
   document.addEventListener('keydown', onKey);
+}
+
+/* ============ 暑假真实题库 / 安装 ============ */
+async function loadSummerBank() {
+  try {
+    const response = await fetch('data/summer-bank.json');
+    if (!response.ok) throw new Error(`题库加载失败 (${response.status})`);
+    const bank = await response.json();
+    const summerUnit = {
+      icon: 'fa-compass-drafting', title: '暑假思维营 · 55题', motto: '每天 10–15 分钟，写出思路，比只报答案更重要。',
+      example: '先独立想，再对照图解和同类变式。', steps: ['读题圈出条件。', '写出关键算式或画图。', '对照讲解，诚实自评。'],
+      questions: Object.entries(bank).map(([date, item]) => ({
+        type: 'open', date, idx: item.idx, stageName: item.stage_name, theme: item.theme, diff: item.diff,
+        q: item.q, hint: `先想想“${item.theme}”这个方法能不能帮上忙。`,
+        steps: solutionLines(item.sol), solution: item.sol, v1: item.v1, v1a: item.v1a, v2: item.v2, v2a: item.v2a,
+      })),
+    };
+    const units = CURRICULUM[3].units;
+    const existing = units.findIndex(u => u.title === summerUnit.title);
+    state.summerUnitIdx = existing >= 0 ? existing : units.push(summerUnit) - 1;
+    renderSummerBrief();
+  } catch (error) {
+    console.warn('暑假题库未加载，保留基础学习路径。', error);
+    const title = $('#summerBriefTitle');
+    if (title) title.textContent = '基础学习路径已就绪';
+    const meta = $('#summerBriefMeta');
+    if (meta) meta.textContent = '联网后可自动同步暑假思维营题库';
+  }
+}
+
+function solutionLines(markdown) {
+  return String(markdown || '').split('\n').map(s => s.replace(/^[-•]\s*/, '').replace(/\*\*/g, '').trim()).filter(Boolean);
+}
+
+function renderSummerBrief() {
+  const unit = CURRICULUM[3].units[state.summerUnitIdx];
+  if (!unit) return;
+  const current = unit.questions.find(q => q.date === todayStr()) || unit.questions[0];
+  $('#summerBriefTitle').textContent = `第 ${current.idx} 题 · ${current.theme}`;
+  $('#summerBriefMeta').textContent = `${current.stageName} · 55 道真实题目 · 写思路再看讲解`;
+}
+
+function openSummerCamp() {
+  if (state.summerUnitIdx < 0) return toast('题库正在准备中，请稍等一下');
+  const qs = CURRICULUM[3].units[state.summerUnitIdx].questions;
+  const idx = qs.findIndex(q => q.date === todayStr());
+  const qIdx = idx >= 0 ? idx : 0;
+  state.profile.grade = 3;
+  state.todayQueue = [{ grade: 3, unitIdx: state.summerUnitIdx, qIdx, q: qs[qIdx], source: 'summer' }];
+  state.currentQueueIdx = 0;
+  resetQuestion();
+  showView('practice');
+}
+
+function initInstallPrompt() {
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault(); state.installPrompt = event; $('#installBanner')?.classList.remove('hidden');
+  });
+  window.addEventListener('appinstalled', () => { $('#installBanner')?.classList.add('hidden'); toast('已安装到设备主屏幕'); });
+}
+
+async function installApp() {
+  if (!state.installPrompt) return toast('在浏览器菜单中选择“添加到主屏幕”即可安装');
+  state.installPrompt.prompt(); await state.installPrompt.userChoice; state.installPrompt = null; $('#installBanner')?.classList.add('hidden');
 }
 
 function onKey(e) {
@@ -275,6 +347,15 @@ function generateTodayQueue() {
   }
 
   const solved = new Set(state.store.attempts.filter(a => a.correct).map(a => a.key));
+  // 2026 暑假计划的真实每日题优先出现；当天不做也可从“暑假思维营”随时进入。
+  if (gradeNum === 3 && state.summerUnitIdx >= 0) {
+    const summerQs = CURRICULUM[3].units[state.summerUnitIdx].questions;
+    const summerIdx = summerQs.findIndex(q => q.date === todayStr());
+    if (summerIdx >= 0) {
+      const key = qKey(state.summerUnitIdx, summerIdx);
+      if (!solved.has(key)) out.push({ grade: 3, unitIdx: state.summerUnitIdx, qIdx: summerIdx, q: summerQs[summerIdx], source: 'summer' });
+    }
+  }
   for (let u = 0; u < CURRICULUM[gradeNum].units.length && out.length < 3; u++) {
     for (let q = 0; q < CURRICULUM[gradeNum].units[u].questions.length && out.length < 3; q++) {
       const k = qKey(u, q);
@@ -322,19 +403,24 @@ function renderPractice() {
   $('#questionTotal').textContent = String(state.todayQueue.length).padStart(2, '0');
   $('#questionDiff').textContent = '★'.repeat(q.diff);
   $('#questionText').textContent = q.q;
-  $('#options').innerHTML = q.options.map((opt, i) =>
-    `<button class="option ${state.selectedAnswer === i ? 'selected' : ''}" data-answer="${i}"><b>${'ABCD'[i]}</b><span>${escapeHTML(opt)}</span></button>`
-  ).join('');
-  $$('.option').forEach(b => b.addEventListener('click', () => {
-    if (state.answered) return;
-    state.selectedAnswer = +b.dataset.answer;
-    $$('.option').forEach(x => x.classList.toggle('selected', +x.dataset.answer === state.selectedAnswer));
-    $('#checkAnswer').disabled = false;
-  }));
+  if (q.type === 'open') {
+    $('#options').innerHTML = `<label class="open-answer-label" for="openAnswer"><i class="fa-solid fa-pencil"></i> 先写下你的想法（算式、画图思路都可以）</label><textarea class="open-answer" id="openAnswer" rows="5" placeholder="我先想到……"></textarea>`;
+    $('#openAnswer').addEventListener('input', () => { $('#checkAnswer').disabled = !$('#openAnswer').value.trim(); });
+  } else {
+    $('#options').innerHTML = q.options.map((opt, i) =>
+      `<button class="option ${state.selectedAnswer === i ? 'selected' : ''}" data-answer="${i}"><b>${'ABCD'[i]}</b><span>${escapeHTML(opt)}</span></button>`
+    ).join('');
+    $$('.option').forEach(b => b.addEventListener('click', () => {
+      if (state.answered) return;
+      state.selectedAnswer = +b.dataset.answer;
+      $$('.option').forEach(x => x.classList.toggle('selected', +x.dataset.answer === state.selectedAnswer));
+      $('#checkAnswer').disabled = false;
+    }));
+  }
   $('#hintBox').textContent = q.hint;
   $('#hintBox').classList.remove('visible');
-  $('#checkAnswer').disabled = state.selectedAnswer === null || state.answered;
-  $('#checkAnswer').innerHTML = '<span>✅ 看看对不对</span>';
+  $('#checkAnswer').disabled = q.type === 'open' ? true : state.selectedAnswer === null || state.answered;
+  $('#checkAnswer').innerHTML = q.type === 'open' ? '<span>查看分步讲解</span>' : '<span>看看对不对</span>';
   $('#explainCard').classList.add('hidden');
   $('#noteInput').value = Storage.getNote(state.currentQKey);
   $('#timerChip').textContent = '00:00';
@@ -367,6 +453,7 @@ function checkAnswer() {
   const item = state.todayQueue[state.currentQueueIdx];
   if (!item) return;
   const q = item.q;
+  if (q.type === 'open') return revealOpenSolution(item);
   const correct = state.selectedAnswer === q.answer;
   state.answered = true;
 
@@ -441,6 +528,44 @@ function checkAnswer() {
     toast(Stickers.encourage(correct, stickerResult?.count === (Stickers.levels[stickerResult?.level]?.count)));
     $('#explainCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) { console.error('checkAnswer 异常:', e.message, e.stack); }
+}
+
+function revealOpenSolution(item) {
+  const q = item.q;
+  if (state.answered) return;
+  state.answered = true;
+  if (state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; }
+  const response = $('#openAnswer')?.value.trim() || '';
+  $('#openAnswer')?.setAttribute('readonly', 'readonly');
+  $('#checkAnswer').disabled = true;
+  $('#rewardEmoji').textContent = '✎';
+  $('#rewardTitle').textContent = '先对照思路，再判断自己掌握了吗？';
+  $('#explainTitle').textContent = `${q.theme} · 分步讲解`;
+  $('#solutionSteps').innerHTML = `<div class="open-solution">${richText(q.solution)}</div>` +
+    `<div class="solution-step"><span>+</span><span>同类变式：${escapeHTML(q.v1 || '再用同一种方法试一次。')}</span></div>` +
+    `<div class="open-self-assess" id="openSelfAssess"><button class="mastered" data-open-result="true">我做对了，继续闯关</button><button class="review" data-open-result="false">我需要复习，加入复盘</button></div>`;
+  $('#explainCard').classList.remove('hidden');
+  $('#openSelfAssess').querySelectorAll('[data-open-result]').forEach(button => button.addEventListener('click', () => finishOpenQuestion(item, button.dataset.openResult === 'true', response)));
+  $('#explainCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function richText(text) {
+  return escapeHTML(text || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+}
+
+function finishOpenQuestion(item, correct, response) {
+  const key = state.currentQKey;
+  if (!key) return;
+  const elapsed = Math.round((Date.now() - state.timerStart) / 1000);
+  if (correct) {
+    SRS.pass(state.store, key);
+    const theme = Stickers.pickTheme(item.q); Stickers.award(state.store, theme.id);
+  } else SRS.fail(state.store, key);
+  Storage.recordAttempt(3, item.unitIdx, item.qIdx, correct, key, elapsed, state.hintsUsed);
+  const latest = Storage.load(); latest.srs = state.store.srs; latest.stickers = state.store.stickers; Storage.save(latest); loadStore();
+  Storage.setNote(key, response);
+  $('#openSelfAssess').innerHTML = correct ? '<span>已记录为掌握，明天会安排恰当复盘。</span>' : '<span>已加入复盘，明天会再见到这道题。</span>';
+  renderStickerGrid(); renderSummerBrief(); toast(correct ? '已收下这次思考成果' : '已安排复盘，明天再来一次');
 }
 
 function flySticker(emoji, fromX, fromY, callback) {
