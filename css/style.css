@@ -36,15 +36,15 @@ html, body {
   background-attachment: fixed;
   color: var(--ink);
   font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-  font-size: 18px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
 
 .mono { font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace; font-feature-settings: "tnum"; }
 
-.display { font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif; font-weight: 600; letter-spacing: -0.01em; }
+.display { font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif; font-weight: 600; letter-spacing: -0.01em; }
 
 /* ============== 背景云朵装饰 ============== */
 .bg-deco { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
@@ -101,8 +101,8 @@ html, body {
 }
 .brand b {
   display: block;
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
-  font-size: 24px;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 21px;
   font-weight: 700;
   color: var(--sky-deep);
   line-height: 1.15;
@@ -161,9 +161,9 @@ html, body {
 
 /* ============== Main ============== */
 .main-stage {
-  max-width: 980px;
+  max-width: 880px;
   margin: 0 auto;
-  padding: 24px 20px 140px;
+  padding: 20px 24px 100px;
 }
 
 /* ============== Views ============== */
@@ -175,11 +175,11 @@ html, body {
 }
 
 /* ============== Block / Headers ============== */
-.block { margin: 28px 0; }
+.block { margin: 22px 0; }
 .block-title {
   margin: 0 0 16px;
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
-  font-size: 26px;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 23px;
   font-weight: 600;
   color: var(--sky-deep);
 }
@@ -197,11 +197,11 @@ html, body {
 .hero-card {
   background: linear-gradient(135deg, var(--sun) 0%, var(--peach-soft) 100%);
   border-radius: var(--radius-lg);
-  padding: 28px 32px;
+  padding: 22px 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 20px;
   box-shadow: var(--shadow-lg);
   position: relative;
   overflow: hidden;
@@ -222,8 +222,8 @@ html, body {
 }
 .hero-title {
   margin: 0 0 10px;
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
-  font-size: 38px;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 32px;
   font-weight: 700;
   color: var(--sky-deep);
   line-height: 1.15;
@@ -234,7 +234,7 @@ html, body {
   color: var(--ink-2);
 }
 .hero-fox {
-  font-size: 90px;
+  font-size: 72px;
   z-index: 1;
   animation: wiggle 3s ease-in-out infinite;
 }
@@ -249,7 +249,7 @@ html, body {
   padding: 14px 22px;
   background: var(--white);
   border-radius: var(--radius-lg);
-  font-size: 17px;
+  font-size: 15px;
   color: var(--ink-2);
   position: relative;
   box-shadow: var(--shadow);
@@ -268,19 +268,19 @@ html, body {
 .task-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 12px;
 }
 .task-card {
   background: var(--white);
   border: 3px solid var(--line);
   border-radius: var(--radius);
-  padding: 22px;
+  padding: 16px 18px;
   cursor: pointer;
   transition: all .15s;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 .task-card:hover {
   border-color: var(--peach);
@@ -306,8 +306,8 @@ html, body {
   color: var(--coral);
 }
 .task-num {
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
-  font-size: 34px;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 30px;
   font-weight: 700;
   color: var(--peach);
   line-height: 1;
@@ -319,7 +319,7 @@ html, body {
 }
 .task-card h4 {
   margin: 8px 0 0;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--ink);
   line-height: 1.5;
@@ -380,18 +380,18 @@ html, body {
 .planet-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 .planet-card {
   background: var(--white);
   border: 3px solid var(--line);
   border-radius: var(--radius);
-  padding: 18px 22px;
+  padding: 14px 18px;
   cursor: pointer;
   transition: all .15s;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 .planet-card:hover {
   border-color: var(--peach);
@@ -401,7 +401,7 @@ html, body {
   width: 54px; height: 54px;
   border-radius: 16px;
   display: grid; place-items: center;
-  font-size: 26px;
+  font-size: 23px;
   flex-shrink: 0;
 }
 .planet-info { flex: 1; min-width: 0; }
@@ -455,7 +455,7 @@ html, body {
   letter-spacing: .04em;
 }
 .rec-title {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--ink);
   margin: 6px 0 6px;
@@ -530,15 +530,15 @@ html, body {
   background: var(--white);
   border: 3px solid var(--line);
   border-radius: var(--radius-lg);
-  padding: 34px;
+  padding: 24px 28px;
   box-shadow: var(--shadow);
 }
 .question-text {
   margin: 0 0 24px;
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
-  font-size: 24px;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 21px;
   font-weight: 500;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--sky-deep);
 }
 
@@ -557,7 +557,7 @@ html, body {
   background: var(--white);
   border-radius: var(--radius);
   font: inherit;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 500;
   text-align: left;
   cursor: pointer;
@@ -584,7 +584,7 @@ html, body {
 }
 .option:disabled { cursor: default; }
 .option b {
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 18px;
   color: var(--peach);
   background: var(--sun);
@@ -657,7 +657,7 @@ html, body {
   padding: 14px 20px;
   background: var(--sun);
   border-radius: var(--radius);
-  font-size: 17px;
+  font-size: 15px;
   color: var(--ink-2);
   display: none;
   border-left: 4px solid var(--peach);
@@ -692,7 +692,7 @@ html, body {
 }
 .reward-title {
   margin: 0;
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: var(--sky-deep);
@@ -710,7 +710,7 @@ html, body {
   color: var(--ink);
 }
 .solution-step span {
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 16px;
   color: var(--peach-dark);
   background: var(--white);
@@ -771,7 +771,7 @@ html, body {
 .wrong-stars { color: var(--peach); letter-spacing: 1px; }
 .wrong-q {
   margin: 8px 0 14px;
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 19px;
   font-weight: 500;
   color: var(--ink);
@@ -822,7 +822,7 @@ html, body {
 .stat-emoji { font-size: 24px; margin-bottom: 4px; }
 .stat-value {
   margin: 6px 0;
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 32px;
   font-weight: 700;
   color: var(--sky-deep);
@@ -849,13 +849,13 @@ html, body {
   align-items: center;
 }
 .unit-num {
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: var(--peach);
 }
 .unit-title {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--ink);
 }
@@ -910,11 +910,11 @@ html, body {
   background: var(--white);
   border: 2px solid var(--line);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 20px 24px;
 }
 .lesson-panel h2 {
   margin: 0;
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 24px;
   font-weight: 600;
   color: var(--sky-deep);
@@ -953,7 +953,7 @@ html, body {
   font-size: 14px;
 }
 .lesson-panel .mini-steps b {
-  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
+  font-family: "Fredoka", "Quicksand", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 13px;
   color: var(--peach);
   background: var(--peach-soft);
@@ -994,7 +994,7 @@ html, body {
   cursor: pointer;
   min-width: 64px;
 }
-.tab-item span { font-size: 26px; }
+.tab-item span { font-size: 23px; }
 .tab-item.active { background: var(--peach); color: white; }
 .tab-item.active span { animation: bounce .5s; }
 
