@@ -1,8 +1,7 @@
 /* ============================================================
    豆豆数学探险队 v5.0 · 儿童友好版样式
    配色：天空蓝 + 暖橙 + 薄荷绿 + 奶油黄
-   字体：Fredoka + Quicksand + JetBrains Mono
-   ============================================================ */
+   字体：system-ui（macOS/iOS/Win/Android 全平台零依赖）
 
 :root {
   --sky: #E0F2FE;
@@ -36,7 +35,7 @@ html, body {
   background: linear-gradient(180deg, var(--sky) 0%, var(--cream) 60%);
   background-attachment: fixed;
   color: var(--ink);
-  font-family: "Quicksand", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -45,7 +44,7 @@ html, body {
 
 .mono { font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace; font-feature-settings: "tnum"; }
 
-.display { font-family: "Fredoka", "Noto Sans SC", serif; font-weight: 600; letter-spacing: -0.01em; }
+.display { font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif; font-weight: 600; letter-spacing: -0.01em; }
 
 /* ============== 背景云朵装饰 ============== */
 .bg-deco { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
@@ -102,7 +101,7 @@ html, body {
 }
 .brand b {
   display: block;
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 24px;
   font-weight: 700;
   color: var(--sky-deep);
@@ -179,7 +178,7 @@ html, body {
 .block { margin: 28px 0; }
 .block-title {
   margin: 0 0 16px;
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 26px;
   font-weight: 600;
   color: var(--sky-deep);
@@ -223,7 +222,7 @@ html, body {
 }
 .hero-title {
   margin: 0 0 10px;
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 38px;
   font-weight: 700;
   color: var(--sky-deep);
@@ -307,7 +306,7 @@ html, body {
   color: var(--coral);
 }
 .task-num {
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 34px;
   font-weight: 700;
   color: var(--peach);
@@ -536,7 +535,7 @@ html, body {
 }
 .question-text {
   margin: 0 0 24px;
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 24px;
   font-weight: 500;
   line-height: 1.55;
@@ -585,7 +584,7 @@ html, body {
 }
 .option:disabled { cursor: default; }
 .option b {
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 18px;
   color: var(--peach);
   background: var(--sun);
@@ -693,7 +692,7 @@ html, body {
 }
 .reward-title {
   margin: 0;
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: var(--sky-deep);
@@ -711,7 +710,7 @@ html, body {
   color: var(--ink);
 }
 .solution-step span {
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 16px;
   color: var(--peach-dark);
   background: var(--white);
@@ -772,7 +771,7 @@ html, body {
 .wrong-stars { color: var(--peach); letter-spacing: 1px; }
 .wrong-q {
   margin: 8px 0 14px;
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 19px;
   font-weight: 500;
   color: var(--ink);
@@ -823,7 +822,7 @@ html, body {
 .stat-emoji { font-size: 24px; margin-bottom: 4px; }
 .stat-value {
   margin: 6px 0;
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 32px;
   font-weight: 700;
   color: var(--sky-deep);
@@ -850,7 +849,7 @@ html, body {
   align-items: center;
 }
 .unit-num {
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: var(--peach);
@@ -915,7 +914,7 @@ html, body {
 }
 .lesson-panel h2 {
   margin: 0;
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 24px;
   font-weight: 600;
   color: var(--sky-deep);
@@ -954,7 +953,7 @@ html, body {
   font-size: 14px;
 }
 .lesson-panel .mini-steps b {
-  font-family: "Fredoka", "Noto Sans SC", serif;
+  font-family: "Comic Sans MS", system-ui, "PingFang SC", sans-serif;
   font-size: 13px;
   color: var(--peach);
   background: var(--peach-soft);
