@@ -78,7 +78,7 @@ html, body {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255,251,235,.85);
+  background: rgba(255, 248, 224, 0.78);  /* 护眼暖色 */
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
   padding: 12px 24px;
@@ -976,7 +976,7 @@ html, body {
   bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--white);
+  background: #FFFCF5;
   border-radius: var(--radius-lg);
   padding: 8px 12px;
   display: flex;
