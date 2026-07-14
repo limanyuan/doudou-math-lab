@@ -32,6 +32,8 @@
 
 html, body {
   margin: 0; padding: 0;
+  display: flex;
+  justify-content: center;
   background: linear-gradient(180deg, var(--sky) 0%, var(--cream) 60%);
   background-attachment: fixed;
   color: var(--ink);
@@ -82,6 +84,9 @@ html, body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 100%;
 }
 .brand {
   display: flex;
