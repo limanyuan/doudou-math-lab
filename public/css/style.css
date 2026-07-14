@@ -4,11 +4,11 @@
    字体：system-ui（macOS/iOS/Win/Android 全平台零依赖）
 
 :root {
-  --sky: #E0F2FE;
+  --sky: #E8F0FE;  /* 更柔和的暖蓝 */
   --sky-2: #BAE6FD;
-  --cream: #FFFBEB;
-  --sun: #FEF3C7;
-  --peach: #FB923C;
+  --cream: #FFF4E0;
+  --sun: #FFF1D6;
+  --peach: #F97316;  /* 稍深的橙 */
   --peach-dark: #EA580C;
   --peach-soft: #FED7AA;
   --mint: #34D399;
@@ -16,11 +16,11 @@
   --coral: #F87171;
   --coral-soft: #FEE2E2;
   --sky-deep: #1E3A8A;
-  --ink: #1E293B;
-  --ink-2: #475569;
+  --ink: #2D3142;
+  --ink-2: #5A5F6F
   --muted: #94A3B8;
-  --line: #E2E8F0;
-  --white: #FFFFFF;
+  --line: #E8DFD0;  /* 暖灰边框 */
+  --white: #FFFCF5;  /* 暖白替代纯白，护眼 */
   --shadow: 0 4px 0 rgba(30,58,138,.08), 0 2px 8px rgba(30,58,138,.04);
   --shadow-lg: 0 8px 24px rgba(30,58,138,.12), 0 4px 8px rgba(30,58,138,.06);
   --radius: 18px;
@@ -34,7 +34,9 @@ html, body {
   margin: 0; padding: 0;
   display: flex;
   justify-content: center;
-  background: linear-gradient(180deg, var(--sky) 0%, var(--cream) 60%);
+  /* 护眼暖色渐变：奶油 → 暖桃 → 奶茶色 */
+  background: linear-gradient(180deg, #FFF8E7 0%, #FFEFD5 35%, #FFE4C8 70%, #F5DCC0 100%);
+  background-attachment: fixed;
   background-attachment: fixed;
   color: var(--ink);
   font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
