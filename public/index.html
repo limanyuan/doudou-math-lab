@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FB923C">
+  <title>🦊 豆豆数学探险队 · 儿童友好版</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/visual-explanations.css">
+</head>
+<body>
+  <div class="bg-deco">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+  </div>
+
+  <!-- 顶部导航 -->
+  <header class="topbar">
+    <a class="brand" href="#home">
+      <span class="brand-emoji">🦊</span>
+      <span>
+        <b>豆豆数学探险队</b>
+        <small>和豆豆一起，去看看数学长什么样</small>
+      </span>
+    </a>
+    <div class="top-actions">
+      <div class="streak-pill"><span>🔥</span><b id="streakNum">0</b><span>天</span></div>
+      <button class="profile-pill" id="openProfile">
+        <span class="avatar" id="profileAvatar">豆</span>
+        <span id="profileName">豆豆</span>
+        <span class="grade-badge" id="profileGrade">三年级</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-stage">
+
+    <!-- 营地 -->
+    <section class="view active" id="homeView">
+      <div class="hero-card">
+        <div class="hero-content">
+          <p class="hero-eyebrow">今天的探险 🧭</p>
+          <h1 class="hero-title">你好，<span id="studentName">豆豆</span>！</h1>
+          <p class="hero-desc">小狐狸已经给你准备好了 <b>3 关</b> 思维挑战。答对就有小贴纸哦～</p>
+          <div class="fox-bubble" id="foxBubble">嗨，豆豆！今天我们来探险啦～</div>
+        </div>
+        <div class="hero-fox">🦊</div>
+      </div>
+
+      <!-- 今日 3 关 -->
+      <section class="block">
+        <h2 class="block-title">🌟 今天的 3 关</h2>
+        <div class="task-grid" id="todayCards"></div>
+      </section>
+
+      <!-- 贴纸进度 -->
+      <section class="block">
+        <h2 class="block-title">🎁 我的小贴纸</h2>
+        <div class="sticker-grid" id="stickerGrid"></div>
+      </section>
+
+      <!-- 章节地图 -->
+      <section class="block">
+        <h2 class="block-title">🗺️ 章节地图</h2>
+        <p class="block-hint">挑一个想去的地方吧～ 不一定要按顺序！</p>
+        <div class="planet-grid" id="homePlanets"></div>
+      </section>
+
+      <!-- 推荐 -->
+      <section class="block">
+        <h2 class="block-title">💡 小狐狸建议</h2>
+        <div class="recommend-row" id="recommendRow"></div>
+      </section>
+
+      <!-- 日历 -->
+      <section class="block">
+        <h2 class="block-title">📅 学习小日历</h2>
+        <div class="calendar-heatmap" id="calendarHeatmap"></div>
+      </section>
+    </section>
+
+    <!-- 星球（章节） -->
+    <section class="view" id="learnView">
+      <div class="page-header">
+        <p class="eyebrow">🧭 章节选择</p>
+        <h2 class="block-title">挑一个想去的地方</h2>
+        <button class="back-btn" data-jump="home">← 回营地</button>
+      </div>
+      <div class="learning-layout">
+        <div class="unit-tree" id="planetMap"></div>
+        <article class="lesson-panel" id="lessonPanel"></article>
+      </div>
+    </section>
+
+    <!-- 闯关 -->
+    <section class="view" id="practiceView">
+      <div class="practice-header">
+        <button class="back-btn" data-jump="home">← 回营地</button>
+        <div class="practice-meta">
+          <span class="meta-chip" id="questionIndex">01</span>
+          <span class="meta-sep">/</span>
+          <span class="meta-chip" id="questionTotal">03</span>
+          <span class="meta-sep">·</span>
+          <span class="meta-chip diff-chip" id="questionDiff">★</span>
+          <span class="meta-sep">·</span>
+          <span class="meta-chip timer-chip" id="timerChip">00:00</span>
+        </div>
+      </div>
+
+      <div class="question-card">
+        <h3 class="question-text" id="questionText">题目加载中…</h3>
+        <div class="option-grid" id="options"></div>
+        <div class="question-actions">
+          <button class="ghost-btn" id="showHint">
+            <span>💡</span><span>要个提示</span>
+          </button>
+          <button class="primary-btn" id="checkAnswer" disabled>
+            <span>✅ 看看对不对</span>
+          </button>
+        </div>
+        <div class="hint-box" id="hintBox"></div>
+      </div>
+
+      <!-- 贴纸奖励条 -->
+      <section class="reward-card hidden" id="explainCard">
+        <div class="reward-header">
+          <span class="reward-emoji" id="rewardEmoji">⭐</span>
+          <div>
+            <p class="reward-eyebrow" id="rewardTitle">贴纸 +1</p>
+            <h3 class="reward-title" id="explainTitle">这样想就清楚了</h3>
+          </div>
+        </div>
+        <div class="solution-steps" id="solutionSteps"></div>
+        <div class="note-section">
+          <label class="note-label">记下你的想法（可选）</label>
+          <textarea class="note-input" id="noteInput" rows="2" placeholder="比如：原来要先去凑十啊！"></textarea>
+          <button class="ghost-btn small" id="saveNoteBtn">💾 保存笔记</button>
+        </div>
+        <button class="primary-btn full" id="nextQuestion">
+          <span id="nextBtnText">下一关</span>
+          <span>→</span>
+        </button>
+      </section>
+    </section>
+
+    <!-- 错题本 -->
+    <section class="view" id="wrongView">
+      <div class="page-header">
+        <p class="eyebrow">📕 错题本</p>
+        <h2 class="block-title">每订正一次，都更厉害一点</h2>
+        <button class="back-btn" data-jump="home">← 回营地</button>
+      </div>
+      <div id="wrongList"></div>
+    </section>
+
+    <!-- 贴纸册 -->
+    <section class="view" id="stickersView">
+      <div class="page-header">
+        <p class="eyebrow">🎁 贴纸收集册</p>
+        <h2 class="block-title">你已经收集了这些！</h2>
+        <button class="back-btn" data-jump="home">← 回营地</button>
+      </div>
+      <div class="sticker-album" id="stickerAlbum"></div>
+    </section>
+
+    <!-- 足迹 -->
+    <section class="view" id="progressView">
+      <div class="page-header">
+        <p class="eyebrow">📊 实验总览</p>
+        <h2 class="block-title">每一步都在变厉害</h2>
+        <button class="back-btn" data-jump="home">← 回营地</button>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-emoji">📝</div>
+          <p class="stat-value" id="statAttempts">0</p>
+          <p class="stat-label">总答题</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-emoji">🎯</div>
+          <p class="stat-value" id="statAccuracy">0%</p>
+          <p class="stat-label">答对率</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-emoji">⏱️</div>
+          <p class="stat-value" id="statAvgTime">0s</p>
+          <p class="stat-label">平均用时</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-emoji">🏆</div>
+          <p class="stat-value" id="statMastered">0</p>
+          <p class="stat-label">已掌握</p>
+        </div>
+      </div>
+
+      <section class="block">
+        <h2 class="block-title">🧭 各章节掌握度</h2>
+        <div class="unit-report" id="unitReport"></div>
+      </section>
+
+      <section class="block">
+        <h2 class="block-title">📅 学习日历</h2>
+        <div class="calendar-heatmap large" id="calendarLarge"></div>
+      </section>
+    </section>
+  </main>
+
+  <!-- 底部 tab 栏（移动 + 桌面通用） -->
+  <nav class="bottom-tab">
+    <button class="tab-item active" data-view="home"><span>🏠</span><b>营地</b></button>
+    <button class="tab-item" data-view="learn"><span>🧭</span><b>星球</b></button>
+    <button class="tab-item" data-view="practice"><span>⚔️</span><b>闯关</b></button>
+    <button class="tab-item" data-view="stickers"><span>🎁</span><b>贴纸</b></button>
+    <button class="tab-item" data-view="progress"><span>📊</span><b>足迹</b></button>
+  </nav>
+
+  <!-- Profile Modal -->
+  <div class="modal-backdrop hidden" id="profileModal">
+    <section class="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+      <button class="close-btn" id="closeProfile" aria-label="关闭">✕</button>
+      <p class="eyebrow">⚙️ 个性化</p>
+      <h2 id="profileTitle">我现在上几年级？</h2>
+      <p class="modal-hint">随便选，可以随时改哦～</p>
+      <div class="grade-grid" id="gradeGrid"></div>
+      <div class="name-field">
+        <label for="nameInput">你的昵称（可不填）</label>
+        <input id="nameInput" maxlength="10" placeholder="例如：豆豆">
+      </div>
+      <button class="primary-btn full" id="saveProfile">🚀 开始探险</button>
+    </section>
+  </div>
+  <div class="toast hidden" id="toast"></div>
+
+  <!-- 贴纸飞舞动画容器 -->
+  <div id="flyLayer"></div>
+
+  <script src="js/curriculum.js"></script>
+  <script src="js/explanations.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/srs.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/stickers.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

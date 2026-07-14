@@ -1,13 +1,7 @@
-# wrangler 和部署相关
+# 排除会被部署到 CDN 的内部文件
 .wrangler/
-wrangler.jsonc
+deploy/
+*.log
 
-# 部署时不要上传 .git
-.git/
-.gitignore
-
-# 系统文件
+# OS 文件
 .DS_Store
-*.swp
-*.swo
-*~
