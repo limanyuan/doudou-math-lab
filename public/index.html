@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#FB923C">
   <title>🦊 豆豆数学探险队 · 儿童友好版</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- 系统字体优先，避免外部 CDN 慢加载导致页面空白 -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/visual-explanations.css">
 </head>
@@ -210,7 +208,7 @@
     </section>
   </main>
 
-  <!-- 底部 tab 栏（移动 + 桌面通用） -->
+  <!-- 底部 tab 栏 -->
   <nav class="bottom-tab">
     <button class="tab-item active" data-view="home"><span>🏠</span><b>营地</b></button>
     <button class="tab-item" data-view="learn"><span>🧭</span><b>星球</b></button>
