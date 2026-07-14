@@ -77,17 +77,16 @@ html, body {
 .topbar {
   position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 50;
   background: rgba(255, 248, 224, 0.88);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
-  padding: 10px 20px;
+  width: 100%;
 }
 .topbar-inner {
   max-width: 1080px;
   margin: 0 auto;
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -172,10 +171,13 @@ html, body {
 /* ============== Main ============== */
 .main-stage {
   max-width: 1080px;
-  margin: 0 auto;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   padding: 20px 24px 100px;
   position: relative;
   z-index: 1;
+  display: block;
 }
 
 /* ============== Views ============== */
@@ -978,11 +980,12 @@ html, body {
 /* ============== Bottom tab bar ============== */
 .bottom-tab {
   position: fixed;
-  bottom: 12px;
+  bottom: 0;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
+  padding: 12px;
   pointer-events: none;
   z-index: 40;
 }
@@ -995,8 +998,8 @@ html, body {
   gap: 4px;
   box-shadow: var(--shadow-lg);
   border: 2px solid var(--line);
-  max-width: 480px;
-  width: calc(100% - 24px);
+  max-width: 520px;
+}
   border-radius: var(--radius-lg);
   padding: 8px 12px;
   display: flex;
